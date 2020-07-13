@@ -2,6 +2,10 @@
 
 ur5+robotiq_85_gripper gazebo grasping
 
+程序包中还缺少UR5机械臂的驱动包，下载方式
+
+git clone https://github.com/ros-industrial/universal_robot.git
+
 运行（run）：
 
 roslaunch ur5_single_arm_tufts ur5_single_arm_gazebo.launch
