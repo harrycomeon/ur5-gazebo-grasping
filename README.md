@@ -15,3 +15,7 @@ rosrun ur5_single_arm_manipulation grasping_demo.py
 描述：
 
 在GAZEBO环境下，搭建了世界环境，并且添加了深度相机和带手抓的UR5机械臂，利用moveit_commander实现简单抓取操作。
+
+参考网址：
+
+https://blog.csdn.net/harrycomeon/article/details/107073020
