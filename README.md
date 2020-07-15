@@ -19,3 +19,10 @@ rosrun ur5_single_arm_manipulation grasping_demo.py
 参考网址：
 
 https://blog.csdn.net/harrycomeon/article/details/107073020
+
+问题：
+
+robotiq_85_gripper  包编译存在问题 用这个包替换
+
+git clone https://github.com/StanleyInnovation/robotiq_85_gripper.git
+ 
