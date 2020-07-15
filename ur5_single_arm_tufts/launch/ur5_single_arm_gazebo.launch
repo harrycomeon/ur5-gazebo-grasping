@@ -20,7 +20,7 @@
   <!--node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0" respawn="false" output="screen"/-->
 
   <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model"
-        args="-urdf -param robot_description -model robot -z 0
+        args="-urdf -param robot_description -model robot -z 0.594
               -J shoulder_lift_joint -2.0
               -J elbow_joint 1.0"
         output="screen" />
