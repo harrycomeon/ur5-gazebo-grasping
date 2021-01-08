@@ -1,6 +1,3 @@
-##### ur5-gazebo-grasping
-
-ur5+robotiq_85_gripper gazebo grasping
 
 
 ##### 1,problem：
