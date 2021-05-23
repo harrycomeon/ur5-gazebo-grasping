@@ -2,12 +2,7 @@
 
 ##### 1,problem：
 
-1-1,程序包中还缺少UR5机械臂的驱动包，下载方式
-
-git clone https://github.com/ros-industrial/universal_robot.git
-
-
-1-2,robotiq_85_gripper  包编译存在问题 用这个包替换
+1-1, 如果存在robotiq_85_gripper  包编译存在问题 用这个包替换
 
 git clone https://github.com/StanleyInnovation/robotiq_85_gripper.git
 
