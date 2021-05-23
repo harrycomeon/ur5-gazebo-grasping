@@ -1,0 +1,3 @@
+<launch>
+<node pkg="opencv" name="image_converter" type="image_converter.py" output="screen"/>
+</launch>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root 
+ xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+ xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+ xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+<!-- MACRO FOR THE ROBOT ARM ON THE TABLE-->
+<xacro:macro name="gzplugin_grasp_fix">
+	<gazebo>
+		<plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+			<!--
+            NOTE: The finger tips are linked together with the links before, because they are connected with a
+			fixed joint. Gazebo makes one whole link out of this automatically. When listing the 9_*_tip links
+			here, they won't be found in the SDF.
+            -->
+            <arm>
+                <arm_name>UR5Arm</arm_name>
+
+                <!-- 0.01977<0.0198<0.01999 -->
+                <palm_link> gripper_finger1_inner_knuckle_link </palm_link>
+		        <gripper_link> gripper_finger1_finger_tip_link </gripper_link>
+		        <palm_link> gripper_finger2_inner_knuckle_link </palm_link>
+		        <gripper_link> gripper_finger2_finger_tip_link </gripper_link>
+
+		        <!-- 0.01976<0.01977<0.01978 -->
+<!--                 <palm_link>wrist_3_link</palm_link>
+                <gripper_link>gripper_finger1_inner_knuckle_link</gripper_link>
+                <gripper_link>gripper_finger1_finger_tip_link</gripper_link>
+                <gripper_link>gripper_finger1_knuckle_link</gripper_link>
+				<gripper_link>gripper_finger2_inner_knuckle_link</gripper_link>
+                <gripper_link>gripper_finger2_finger_tip_link</gripper_link>
+                <gripper_link>gripper_finger2_knuckle_link</gripper_link>
+ -->                
+            </arm>
+			<forces_angle_tolerance>100</forces_angle_tolerance>
+			<update_rate>20</update_rate>
+			<grip_count_threshold>1</grip_count_threshold>
+			<max_grip_count>3</max_grip_count>
+			<release_tolerance>0.0198</release_tolerance> <!-- 0.01977<0.0198<0.01999 -->
+			<disable_collisions_on_attach>false</disable_collisions_on_attach>
+			<contact_topic>__default_topic__</contact_topic>
+		</plugin>
+	</gazebo>
+</xacro:macro>
+
+</root>

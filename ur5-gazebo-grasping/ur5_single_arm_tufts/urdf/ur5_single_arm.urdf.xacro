@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="ur5" >
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+
+  <!-- ur5 -->
+  <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+
+  <!-- arm -->
+  <xacro:ur5_robot prefix="" joint_limited="false"/>
+
+  <!-- robotiq 85 -->
+  <xacro:include filename="$(find robotiq_85_description)/urdf/robotiq_85_gripper.urdf.xacro" />
+
+  <!-- gripper -->
+  <xacro:robotiq_85_gripper prefix="" parent="ee_link" >
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:robotiq_85_gripper>
+
+    <!-- kinect -->
+  <!--xacro:include filename="$(find ur5_single_arm_tufts)/urdf/sensors/kinect/kinect.urdf.xacro" />
+
+  <xacro:kinect name="camera" parent="world" >
+    <origin xyz="0.6 0.0 1.8" rpy="0.0 ${pi/2} 0.0" />
+  </xacro:kinect-->
+
+  <xacro:include filename="$(find kinect_v2)/urdf/kinect_v2.urdf.xacro" />
+    <xacro:kinect_v2  parent="world">
+        <origin xyz="0.6 0 1.00"
+                rpy="0 1.57 0" />
+  </xacro:kinect_v2>
+
+
+  <!-- kinect, ir, rgb sensor-->
+<!--   <xacro:include filename="$(find ur5_single_arm_tufts)/urdf/sensors/kinect2/common.xacro" />
+  <xacro:include filename="$(find ur5_single_arm_tufts)/urdf/sensors/kinect2/kinect2.urdf.xacro" />
+
+  <xacro:kinect2_v0 name="camera" parent="world" >
+    <origin xyz="0.4 0.0 1.2" rpy="0.0 ${pi/2} 0.0" />
+  </xacro:kinect2_v0> -->
+
+  <!-- Pilar property -->
+  <!--xacro:property name="pilar_height" value="0.9"/>
+  <xacro:property name="pilar_radius" value="0.07"/-->
+
+
+  <link name="world"/> 
+
+  <joint name="world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+
+
+
+<!--   <link name="table">
+    <inertial>
+      <origin xyz="0.23 0 0.755" rpy="0 0 0" />
+      <mass value="1"/>
+      <inertia
+        ixx="0.07" ixy="0.0" ixz="0.0"
+        iyy="0.40" iyz="0.0"
+        izz="0.33"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="1 1 0.05"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 .8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="1 1 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="world_to_table" type="fixed">
+      <parent link="world"/>
+      <child link="table"/>
+      <origin xyz="0.85 0 0.70" rpy="0 0 0"/>
+  </joint> -->
+    
+  <!--link name="robot_pilar">
+    <visual>
+      <geometry>
+        <cylinder length="${pilar_height}" radius="${pilar_radius}"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 .8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${pilar_height}" radius="${pilar_radius}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia
+        ixx="0.145833" ixy="0.0" ixz="0.0"
+        iyy="0.145833" iyz="0.0"
+        izz="0.125"/>
+    </inertial> 
+  </link>
+
+  <joint name="pilar_to_world" type="fixed">
+    <parent link="world"/>
+    <child link="robot_pilar"/>
+    <origin xyz="0 0 ${pilar_height/2}" rpy="0 0 0"/>
+  </joint>
+  
+  <joint name="robot_to_pilar" type="fixed">
+    <parent link="robot_pilar"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 ${pilar_height/2}" rpy="0 0 0"/>
+  </joint-->
+
+  <xacro:include filename="$(find ur5_single_arm_tufts)/urdf/gzplugin_grasp_fix.urdf.xacro"/>
+  <xacro:gzplugin_grasp_fix/>
+
+</robot>

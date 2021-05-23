@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="paused" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="sim" default="true" />
+  <arg name="debug" default="false"/>
+
+  <!-- startup simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!--arg name="world_name" default="worlds/empty.world"/-->
+    <arg name="world_name" default="$(find ur5_single_arm_tufts)/worlds/ur5_cubes.world"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+  <!-- send robot urdf to param server -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ur5_single_arm_tufts)/urdf/ur5_single_arm.urdf.xacro'"/>
+  
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <!--node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0" respawn="false" output="screen"/-->
+
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model"
+        args="-urdf -param robot_description -model robot -z 0.594
+              -J shoulder_lift_joint -2.0
+              -J elbow_joint 1.0"
+        output="screen" />
+
+  <include file="$(find ur_gazebo)/launch/controller_utils.launch"/>
+  
+  <rosparam file="$(find ur_gazebo)/controller/arm_controller_ur5.yaml" command="load"/>
+  <rosparam file="$(find robotiq_85_gazebo)/controller/gripper_controller_robotiq.yaml" command="load"/>
+
+  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller gripper" respawn="false" output="screen"/>
+
+  <!-- Effort Controllers -->
+<!--   <rosparam file="$(find ur5_single_arm_tufts)/controller/effort_controller.yaml" command="load"/>
+  <node name="effort_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_effort_controller gripper_effort_controller" respawn="false" output="screen"/> -->
+
+  <include file="$(find ur5_single_arm_moveit_config)/launch/ur5_moveit_planning_execution.launch">
+    <arg name="debug" default="$(arg debug)" />
+    <arg name="sim" default="$(arg sim)" />
+  </include>
+
+  <include file="$(find ur5_single_arm_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="debug" default="$(arg debug)" />
+    <arg name="config" default="true" />
+  </include>
+
+</launch>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:macro name="kinect_gazebo" params="link_name camera_name">
+  <gazebo reference="${link_name}">
+    <sensor name="${name}_camera" type="depth" >
+      <update_rate>20</update_rate>
+      <camera>
+        <horizontal_fov>1.047198</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>3</far>
+        </clip>
+      </camera>
+
+      <plugin name="${link_name}_controller" filename="libgazebo_ros_openni_kinect.so">
+        <baseline>0.2</baseline>
+        <alwaysOn>true</alwaysOn>
+        <!-- Keep this zero, update_rate in the parent <sensor> tag
+          will control the frame rate. -->
+        <updateRate>0.0</updateRate>
+        <cameraName>${camera_name}_ir</cameraName>
+        <imageTopicName>/${camera_name}/depth/image_raw</imageTopicName>
+        <cameraInfoTopicName>/${camera_name}/depth/camera_info</cameraInfoTopicName>
+        <depthImageTopicName>/${camera_name}/depth/image_raw</depthImageTopicName>
+        <depthImageInfoTopicName>/${camera_name}/depth/camera_info</depthImageInfoTopicName>
+        <pointCloudTopicName>/${camera_name}/depth/points</pointCloudTopicName>
+        <frameName>${link_name}</frameName>
+        <pointCloudCutoff>0.05</pointCloudCutoff>
+        <distortionK1>0</distortionK1>
+        <distortionK2>0</distortionK2>
+        <distortionK3>0</distortionK3>
+        <distortionT1>0</distortionT1>
+        <distortionT2>0</distortionT2>
+        <CxPrime>0</CxPrime>
+        <Cx>0</Cx>
+        <Cy>0</Cy>
+        <focalLength>0</focalLength>
+        <hackBaseline>0</hackBaseline>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+</xacro:macro>
+
+</robot>

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro"
+       name="ur5" >
+
+  <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+
+  <!-- ur5 -->
+  <!--xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" /-->
+
+
+  <xacro:include filename="$(find ur_description)/urdf/ur5_with_stand.urdf.xacro" />
+
+ <!-- realsense -->
+  <!--xacro:include filename="$(find ur_description)/urdf/r200.urdf.xacro" />
+  <xacro:sensor_r200 parent="ee_link"/-->
+
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+    <!--xacro:sensor_d435  parent="ee_link"/-->
+
+  <!-- arm -->
+  <xacro:ur5_robot prefix="" joint_limited="false"
+    transmission_hw_interface="$(arg transmission_hw_interface)"
+  />
+
+  <link name="world" />
+
+  <!--joint name="world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint-->
+
+  <joint name="world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "robot_stand" />
+    <origin xyz="-0.305 -0.305 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+
+  <link name="camera_link" />
+
+  <joint name="camera_link_joint" type="fixed">
+    <parent link="ee_link" />
+    <child link = "camera_link" />
+    <!--origin xyz="0.0373819897999 0.0152833323036 0.137884899185" xyzw=" -0.532388013231 0.492905079405  -0.476385852942 0.496652902117" /-->
+
+    <!--origin xyz="0.0248363734103 0.0579067812012 0.15555400512" xyzw=" -0.521606174205  0.527769985374   -0.462099176693 0.485644100623" /-->
+
+    <!--origin xyz="0.0248363734103 0.0433781224343 0.137763058005" xyzw=" -0.521606174205  0.527769985374   -0.462099176693 0.485644100623" /-->
+
+    <!--origin xyz="0.0248363734103 0.0231946427333 0.132958714218" xyzw=" -0.423690540897 0.546240403128   -0.439650037489 0.573424443219" /-->
+
+    <!--origin xyz="0.00877268989153 0.0318804286123 0.00913656374863" xyzw="-0.486395663785 0.533532602293   -0.470897667376 0.506969039884" /-->
+  
+    <origin xyz="0.01648846706940962 0.0118804286123 0.003436061959665565" xyzw="-0.44459416413 0.55918593567  -0.400552554679 0.573763687863" />
+  </joint>
+
+
+</robot>

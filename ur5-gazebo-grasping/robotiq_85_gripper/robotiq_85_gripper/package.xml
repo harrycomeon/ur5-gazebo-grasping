@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>robotiq_85_gripper</name>
+  <version>0.0.1</version>
+  <description>Robotiq 85 Gripper Package</description>
+  <maintainer email="dev@stanleyinnovation.com">Patrick Hussey</maintainer>
+  <license>BSD</license>
+
+  <url type="repository">https://github.com/StanleyInnovation/robotiq_85_gripper</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>robotiq_85_description</run_depend>
+  <run_depend>robotiq_85_driver</run_depend>
+  <run_depend>robotiq_85_msgs</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

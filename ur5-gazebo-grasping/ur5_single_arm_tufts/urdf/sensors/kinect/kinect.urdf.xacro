@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find ur5_single_arm_tufts)/urdf/sensors/kinect/kinect.gazebo.xacro" />
+
+  <!-- Kinect -->
+  <xacro:macro name="kinect" params="name parent *origin">
+    
+    <joint name="${name}_kinect_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_kinect_link"/>
+    </joint>
+
+    <link name="${name}_kinect_link">
+      <inertial>
+        <mass value="0.1"/>
+        <inertia ixx="1"  ixy="0.0"  ixz="0.0"
+                 iyy="1"  iyz="0.0"
+                 izz="1" />
+      </inertial>
+      
+      <collision name="collision">
+        <geometry>
+          <box size="0.073 0.276 0.072" />
+        </geometry>
+      </collision>
+      
+      <visual name="visual">
+        <geometry>
+          <mesh filename="package://ur5_single_arm_tufts/meshes/sensors/kinect/kinect.dae" scale="1 1 1"/>
+        </geometry>
+      </visual>
+
+    </link>
+
+    <xacro:kinect_gazebo link_name="${name}_kinect_link" camera_name="${name}_kinect_head_mount" />
+
+  </xacro:macro>
+</robot>

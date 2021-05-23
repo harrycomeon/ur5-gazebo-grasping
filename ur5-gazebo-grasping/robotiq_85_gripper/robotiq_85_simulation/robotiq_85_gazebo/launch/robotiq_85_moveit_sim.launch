@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- ROS Driver, Robot State Publisher, and sensors -->
+    <node pkg="si_utils" type="timed_roslaunch"
+        args="1 robotiq_85_gazebo robotiq_85.launch"
+        name="robotiq_85_gazebo_bringup" output="screen"/>
+        
+    <!-- MoveIt! configuration -->
+    <node pkg="si_utils" type="timed_roslaunch"
+        args="8 robotiq_85_moveit_config robotiq_85_moveit_planning_execution.launch sim:=true"
+        name="robotiq_85_moveit_bringup" output="screen"/>
+
+    <!-- Kinematics test -->
+    <node pkg="si_utils" type="timed_roslaunch"
+        args="12 robotiq_85_gazebo test_kinematics.launch"
+        name="robotiq_85_kintest_bringup" output="screen"/>
+
+</launch>
