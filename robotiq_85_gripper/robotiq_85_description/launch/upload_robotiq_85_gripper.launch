@@ -1,7 +1,0 @@
-<launch>
-    <arg name="kinova_coupler" default="true"/>
-    
-    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find robotiq_85_description)/urdf/robotiq_85_gripper.xacro'" unless="$(arg kinova_coupler)"/>
-    
-        <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find robotiq_85_description)/urdf/kinova_robotiq_85_gripper.xacro'" if="$(arg kinova_coupler)"/>
-</launch>
